@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+
+      - name: Build x86
+        shell: pwsh
+        run: msbuild .\src\build\windows\MS_VS2022\Lerc\Lerc.vcxproj /p:Platform=x64 /p:OutDir="$pwd/runtimes/win-x64/native/"
+      - name: Build x64
+        shell: pwsh
+        run: msbuild .\src\build\windows\MS_VS2022\Lerc\Lerc.vcxproj /p:Platform=x86 /p:OutDir="$pwd/runtimes/win-x86/native/"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows
