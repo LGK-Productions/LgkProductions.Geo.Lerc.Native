@@ -28,3 +28,27 @@ jobs:
         with:
           name: windows
           path: runtimes/
+
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+
+      - name: Create directories
+        run: mkdir -p runtimes/linux-x64/native/
+      - name: Build x64
+        run: |
+          mkdir tmp
+          cd tmp
+          cmake ../src
+          make
+          cp *.so.* ../runtimes/linux-x64/native/
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: runtimes/
