@@ -28,3 +28,22 @@ jobs:
         with:
           name: windows
           path: runtimes/
+
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+
+      - name: Create directories
+        run: mkdir -p runtimes/linux-x64/native/
+      - name: Build x64
+        run: gcc src/src/LercLib/**/*.cpp -Wall -std=c++17 -fPIC -O3 -s -Wl,-soname,libLerc.so.4 -o runtimes/linux-x64/native/libLerc.so.4 -shared -m64
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: runtimes/
