@@ -9,6 +9,6 @@
     <tags>native lerc esri</tags>
   </metadata>
   <files>
-    <file src="runtimes/**/*" target="/" />
+    <file src="runtimes/**/*" target="runtimes/" />
   </files>
 </package>
