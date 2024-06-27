@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>LgkProductions.Geo.Lerc.Native</id>
+    <version>4.0.0.0</version>
+    <authors>LgkProductions,Esri</authors>
+    <projectUrl>https://github.com/Esri/lerc</projectUrl>
+    <description>Native binaries for Limited Error Raster Compression</description>
+    <tags>native lerc esri</tags>
+  </metadata>
+  <files>
+    <file src="runtimes/**/*" target="/" />
+  </files>
+</package>
