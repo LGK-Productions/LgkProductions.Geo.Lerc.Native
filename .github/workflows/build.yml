@@ -52,3 +52,30 @@ jobs:
         with:
           name: linux
           path: runtimes/
+
+  package:
+    runs-on: ubuntu-latest
+    needs: [linux, windows]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download Windows Build
+        uses: actions/download-artifact@v4
+        with:
+          name: windows
+          path: runtimes
+      - name: Download Linux Build
+        uses: actions/download-artifact@v4
+        with:
+          name: linux
+          path: runtimes
+
+      - name: Package
+        run: nuget pack
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: package
+          path: "*.nupkg"
