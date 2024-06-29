@@ -18,10 +18,10 @@ jobs:
 
       - name: Build x86
         shell: pwsh
-        run: msbuild .\src\build\windows\MS_VS2022\Lerc\Lerc.vcxproj /p:Platform=x64 /p:OutDir="$pwd/runtimes/win-x64/native/"
+        run: msbuild .\src\build\windows\MS_VS2022\Lerc\Lerc.vcxproj /p:Platform=x64 /p:OutDir="$pwd/runtimes/win-x64/native/" /p:Configuration=Release
       - name: Build x64
         shell: pwsh
-        run: msbuild .\src\build\windows\MS_VS2022\Lerc\Lerc.vcxproj /p:Platform=x86 /p:OutDir="$pwd/runtimes/win-x86/native/"
+        run: msbuild .\src\build\windows\MS_VS2022\Lerc\Lerc.vcxproj /p:Platform=x86 /p:OutDir="$pwd/runtimes/win-x86/native/" /p:Configuration=Release
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
