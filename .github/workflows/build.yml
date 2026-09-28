@@ -9,12 +9,12 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           submodules: "true"
 
       - name: Setup MsBuild
-        uses: microsoft/setup-msbuild@v2
+        uses: microsoft/setup-msbuild@v3
 
       - name: Build x86
         shell: pwsh
@@ -24,7 +24,7 @@ jobs:
         run: msbuild .\src\build\windows\MS_VS2022\Lerc\Lerc.vcxproj /p:Platform=x86 /p:OutDir="$pwd/runtimes/win-x86/native/" /p:Configuration=Release
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: windows
           path: runtimes/
@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           submodules: "true"
 
@@ -48,7 +48,7 @@ jobs:
           cp *.so.* ../runtimes/linux-x64/native/
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: linux
           path: runtimes/
@@ -58,24 +58,26 @@ jobs:
     needs: [linux, windows]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Download Windows Build
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: windows
           path: runtimes
       - name: Download Linux Build
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: linux
           path: runtimes
 
+      - uses: actions/setup-dotnet@v6
+
       - name: Package
-        run: nuget pack
+        run: dotnet pack .nuspec
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: package
           path: "*.nupkg"
