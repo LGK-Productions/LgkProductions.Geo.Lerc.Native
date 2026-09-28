@@ -7,6 +7,9 @@
     <projectUrl>https://github.com/Esri/lerc</projectUrl>
     <description>Native binaries for Limited Error Raster Compression</description>
     <tags>native lerc esri</tags>
+    <copyright>© 2015-2026 Esri</copyright>
+    <license type="expression">Apache-2.0</license>
+    <repository type="git" url="https://github.com/LGK-Productions/LgkProductions.Geo.Lerc.Native.git" branch="main" />
   </metadata>
   <files>
     <file src="runtimes/**/*" target="runtimes/" />
